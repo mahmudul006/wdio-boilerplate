@@ -1,0 +1,5 @@
+logs
+allure-report
+allure-results
+junit-results
+node_modules

@@ -1,0 +1,20 @@
+{
+  "name": "wdio-common-skeleton",
+  "type": "module",
+  "devDependencies": {
+    "@wdio/allure-reporter": "^8.16.22",
+    "@wdio/cli": "^8.16.22",
+    "@wdio/devtools-service": "^8.16.22",
+    "@wdio/junit-reporter": "^8.16.22",
+    "@wdio/local-runner": "^8.16.22",
+    "@wdio/mocha-framework": "^8.16.22",
+    "@wdio/spec-reporter": "^8.16.22",
+    "allure-commandline": "^2.24.1",
+    "wdio-intercept-service": "^4.4.0"
+  },
+  "scripts": {
+    "publish": "npx allure generate --clean && npx allure serve allure-results",
+    "login": "WDIO_ENV=dev npx wdio run ./wdio.conf.js --suite login",
+    "projecttree": "WDIO_ENV=dev npx wdio run ./wdio.conf.js --suite projecttree"
+  }
+}
