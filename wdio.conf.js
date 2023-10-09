@@ -1,4 +1,4 @@
-const env = process.env.WDIO_ENV || 'dev';
+const env = process.env.ENV || 'dev';
 import * as allure from 'allure-commandline';
 import url from './urls.js'
 export const config = {
@@ -70,6 +70,11 @@ export const config = {
 
         //edge
         // browserName: 'MicrosoftEdge',
+
+        //headless mode
+        'goog:chromeOptions': {
+            args: ['--window-size=1920,1080', 'headless', 'disable-gpu'],
+        },
     }],
 
     //

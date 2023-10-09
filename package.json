@@ -10,11 +10,12 @@
     "@wdio/mocha-framework": "^8.16.22",
     "@wdio/spec-reporter": "^8.16.22",
     "allure-commandline": "^2.24.1",
+    "cross-env": "^7.0.3",
     "wdio-intercept-service": "^4.4.0"
   },
   "scripts": {
     "publish": "npx allure generate --clean && npx allure serve allure-results",
-    "login": "WDIO_ENV=dev npx wdio run ./wdio.conf.js --suite login",
-    "projecttree": "WDIO_ENV=dev npx wdio run ./wdio.conf.js --suite projecttree"
+    "login": "cross-env ENV=dev npx wdio run ./wdio.conf.js --suite login",
+    "projecttree": "cross-env ENV=dev npx wdio run ./wdio.conf.js --suite projecttree"
   }
 }
