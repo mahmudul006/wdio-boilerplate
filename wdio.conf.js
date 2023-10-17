@@ -29,8 +29,8 @@ export const config = {
     suites: {
         login: ['./test/specs/login.js'],
         projecttree: [
-            './test/specs/login.js',
-            './test/specs/projectDetails.js'
+            './test/specs/newProject.js',
+            // './test/specs/projectDetails.js'
         ]
     },
     // Patterns to exclude.
@@ -72,11 +72,10 @@ export const config = {
         // browserName: 'MicrosoftEdge',
 
         //headless mode
-        'goog:chromeOptions': {
-            args: ['--window-size=1920,1080', 'headless', 'disable-gpu'],
-        },
+        // 'goog:chromeOptions': {
+        //     args: ['headless', 'disable-gpu'],
+        // },
     }],
-
     //
     // ===================
     // Test Configurations
@@ -84,7 +83,7 @@ export const config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'info',
+    logLevel: 'error',
     //
     // Set specific log levels per logger
     // loggers:
