@@ -28,6 +28,9 @@ export const config = {
     ],
     suites: {
         login: ['./test/specs/login.js'],
+        projecttree: [
+            './test/specs/createProject.js'
+        ]
     },
     // Patterns to exclude.
     exclude: [

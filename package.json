@@ -18,6 +18,7 @@
   },
   "scripts": {
     "publish": "npx allure generate --clean && npx allure serve allure-results",
-    "login": "cross-env ENV=dev npx wdio run ./wdio.conf.js --suite login"
+    "login": "cross-env ENV=dev npx wdio run ./wdio.conf.js --suite login",
+    "projecttree": "cross-env ENV=dev npx wdio run ./wdio.conf.js --suite projecttree"
   }
 }

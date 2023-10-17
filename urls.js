@@ -1,6 +1,6 @@
 class EnvironmentConfig {
     constructor() {
-        this.dev = 'https://github.com/mahmudul006/wdio-boilerplate';
+        this.dev = 'http://dev-amberg.seliselocal.com/';
         this.stage = '';
     }
 }
