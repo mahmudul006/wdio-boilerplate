@@ -4,7 +4,7 @@ class Utility{
     }
 }
 class Login{
-    dev_user_id = 'Inspector';
-    dev_pwd = 'RMS!Go22';
+    dev_user_id = '';
+    dev_pwd = '';
 }
 export default new Utility();

@@ -2,6 +2,9 @@
   "name": "wdio-common-skeleton",
   "type": "module",
   "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/register": "^7.22.15",
     "@wdio/allure-reporter": "^8.16.22",
     "@wdio/cli": "^8.16.22",
     "@wdio/devtools-service": "^8.16.22",
@@ -15,7 +18,6 @@
   },
   "scripts": {
     "publish": "npx allure generate --clean && npx allure serve allure-results",
-    "login": "cross-env ENV=dev npx wdio run ./wdio.conf.js --suite login",
-    "projecttree": "cross-env ENV=dev npx wdio run ./wdio.conf.js --suite projecttree"
+    "login": "cross-env ENV=dev npx wdio run ./wdio.conf.js --suite login"
   }
 }

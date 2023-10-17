@@ -28,10 +28,6 @@ export const config = {
     ],
     suites: {
         login: ['./test/specs/login.js'],
-        projecttree: [
-            './test/specs/login.js',
-            './test/specs/projectDetails.js'
-        ]
     },
     // Patterns to exclude.
     exclude: [
@@ -72,9 +68,9 @@ export const config = {
         // browserName: 'MicrosoftEdge',
 
         //headless mode
-        'goog:chromeOptions': {
-            args: ['--window-size=1920,1080', 'headless', 'disable-gpu'],
-        },
+        // 'goog:chromeOptions': {
+        //     args: ['--window-size=1920,1080', 'headless', 'disable-gpu'],
+        // },
     }],
 
     //
@@ -126,6 +122,8 @@ export const config = {
     // commands. Instead, they hook themselves up into the test process.
     // services: [],
     //
+    args: ['--verbose'],
+    outputDir: './logs',
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -149,12 +147,14 @@ export const config = {
     
     reporters: ['spec',
         ['junit', {
-        outputDir: 'junit-results',
-        outputFileFormat: function (options) { 
-            return `results-${options.cid}.${options.suite[0]}.xml`
-        }
+            outputDir: 'junit-results',
+            outputFileFormat: function (options) { 
+                return `results-${options.cid}.${options.suite[0]}.xml`
+            }
         }],
-        ['allure', { outputDir: 'allure-results' }]],
+        ['allure', { 
+            outputDir: 'allure-results' 
+        }]],
     
     onComplete: function() {
         const reportError = new Error('Could not generate Allure report')
