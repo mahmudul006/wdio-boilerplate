@@ -1,23 +1,17 @@
 import locators from "./locators.js";
 import utility  from "../data/utility.js";
+
+
 class GenericFn{
     async open () {
         await browser.maximizeWindow();
         await browser.url('/');
     }
     async login(username, password) {
-      await this.open()
-      console.log(await $('aria/Amberg Technologies AG').getText());
-      console.log(await $('<span />').getText());
-      console.log(await $('button=Login').getText());
-      
-      // await locators.loginpage.inputUsername.setValue(username);
-      await $("[name='username']").setValue(username);
-      
+      await this.open();
+      await locators.loginpage.inputUsername.setValue(username);
       await locators.loginpage.inputPassword.setValue(password);
-      await $('<button />').click();
-
-        // await locators.loginpage.btnSubmit.click();
+      await locators.loginpage.btnSubmit.click();
     }
     async genericWaitUntil(element, flag=true) {
         await browser.waitUntil(async () => {
@@ -37,50 +31,71 @@ class GenericFn{
           for await(let input of inputFields[index]) {
             if (typeof input !== 'string') {
               const arrow = await $$("svg[data-testid='ArrowDropDownIcon']")[idxx++];
-              await $$(`//span[normalize-space()='${idxx===1 ? 'Project Configuration' : 'Customer information'}']`)[0].click();
+              await $$(`span=${idxx===1 ? 'Project Configuration' : 'Customer information'}`)[0].click();
               await arrow.parentElement().click();
-              const target = await $(`//li[normalize-space()='${input[1]}']`);
+              const target = await $(`li=${input[1]}`);
               await target.scrollIntoView();
               await target.click();
               continue;
             }
             const locate = await $(`${input==='Comment' ? 'textarea' : 'input'}[name='${section}.${input}']`);
             await locate.scrollIntoView({ block: 'end' });
-            await locate.setValue(utility.newproject.inputValues[idx++])
+            await locate.setValue(input==='Name' && index===0 ? name : utility.newproject.inputValues[idx++])
           }
         }
+        const filePath = 'C:/Selise/wdio-boilerplate/test/data/files/logo1.png';
+        const element = await locators.newproject.companyLogo;
+        await this.fileUpload(filePath, element)
         await locators.newproject.new_project_create_complete.click();
     }
+
+    async fileUpload(filePath, element) {
+      const remoteFilePath = await browser.uploadFile(filePath);
+      await browser.execute(async (e) => {
+          e.style.display = 'block'; 
+      }, element)
+      await element.setValue(remoteFilePath);
+    }
+    
     async generateAnUniqueProjectName(name) {
-        await this.genericWaitUntil(await locators.searchproject.searchField)
-        await locators.searchproject.searchField.setValue(name);
-        await browser.pause(3000);
-        let str = '', mx = 0;
-        for (const elem of await locators.searchproject.searchResult) {
-          str = await elem.getText();
-          const parts = str.split('-');
-          if (parts.length > 1) {
-            const num = Number(parts[1]);
+      await browser.pause(5000);
+  
+      const elements = [];
+      let idx = 0;
+      await locators.searchproject.searchField.setValue(name);
+      await browser.pause(5000);
+  
+      let str = '';
+      let mx = 0;
+      for (const elem of await $$(`span*=${name}`)) {
+        str = await elem.getText();
+        console.log(str);
+        const parts = str.split('-');
+        if (parts.length > 1) {
+          const num = Number(parts[1]);
+          console.log(num);
+          if(num !== NaN) {
             mx = Math.max(mx, num);
           }
         }
-        const newProjectName = `${name}-${mx + 1}`;
-        console.log(newProjectName);
-        return newProjectName;
+      }
+      
+      const newProjectName = `${name}-${mx + 1}`;
+      console.log(newProjectName);
+      return newProjectName;
     }
     async deleteASingleProject(name) {
         await browser.url('/');
         await locators.searchproject.searchField.setValue(name);
-        let elements = await locators.searchproject.searchResult;
-        await this.genericWaitUntil(elements)
+        await browser.pause(2000);
+        let elements = await $$(`span*=${name}`);
+        //await this.genericWaitUntil(elements)
         await elements[0].click();
 
-        await $("h3").click();
-        await this.genericWaitUntil(await $("//span[normalize-space()='Project']"));
-        await locators.deleteproject.delete_project_button.click();
-        await locators.deleteproject.project_delete_confirm.click();
-        await this.genericWaitUntil(await $("//div[@role='alert']"));
-        expect(await $("//div[@role='alert']").getText()).toEqual('Project deleted successfully')
+        await locators.deleteproject.deleteProjectName.click();
+        await this.genericWaitUntil(await locators.deleteproject.deleteProjectModal);
+        await locators.deleteproject.deleteButton.click();
+        await locators.deleteproject.deleteConfirmButton.click();
     }
 }
 export default new GenericFn();

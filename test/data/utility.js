@@ -10,10 +10,10 @@ class Login{
 }
 class NewProject {
     inputValues = [
-        'Project automation', '1', 'Demo Line', 'Demo Track', 'munich', 'zurich', '0', '1', 'Demo Comment',
-        'Demo Company', 'Demo Street',
-        'Demo Town', 'Demo Post', 'Demo Region',
-        111111111, 'AAA@gmail.com', 'www.abc.com'
-    ];
+        '1', 'Demo Line', 'Demo Track', 'munich', 'zurich' ,'0', '1', 'Demo Comment',
+         'Demo Company', 'Demo Street',
+         'Demo Town','Demo Post','Demo Region',
+         111111111,'AAA@gmail.com','www.abc.com'
+       ];
 }
 export default new Utility();

@@ -40,9 +40,9 @@ export const config = {
   //
   specs: ['./test/specs/**/*.js'],
   suites: {
-    login: ['./test/specs/login.js'],
+    login: ['test/specs/login.e2e.js'],
     projecttree: [
-      './test/specs/newProject.js',
+      'test/specs/newProject.e2e.js',
       // './test/specs/projectDetails.js'
     ],
   },
@@ -76,7 +76,8 @@ export const config = {
     {
       maxInstances: 1,
       browserName: 'chrome',
-      browserVersion: 'stable',
+      browserVersion: '120.0.6099.62',
+      // browserVersion: 'stable',
 
       //firefox
       // browserName: 'firefox',
