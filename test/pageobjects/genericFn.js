@@ -58,13 +58,12 @@ class GenericFn{
     }
     
     async generateAnUniqueProjectName(name) {
-      await browser.pause(5000);
-  
-      const elements = [];
-      let idx = 0;
+      await this.genericWaitUntil(await locators.searchproject.searchField);
+      await locators.searchproject.searchField.waitForInteractable();
       await locators.searchproject.searchField.setValue(name);
-      await browser.pause(5000);
-  
+      // await browser.pause(5000);
+      await this.genericWaitUntil(await $$(`span*=${name}`))
+
       let str = '';
       let mx = 0;
       for (const elem of await $$(`span*=${name}`)) {
