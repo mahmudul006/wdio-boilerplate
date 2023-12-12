@@ -3,9 +3,9 @@ import utility  from "../data/utility.js";
 
 
 class GenericFn{
-    async open () {
+    async open (path) {
         await browser.maximizeWindow();
-        await browser.url('/');
+        await browser.url(path);
     }
     async login(username, password) {
       await this.open();
