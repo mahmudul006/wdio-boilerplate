@@ -5,8 +5,8 @@ class Utility{
     }
 }
 class Login{
-    dev_user_id = '';
-    dev_pwd = '';
+    dev_user_id = 'Inspector';
+    dev_pwd = 'RMS!Go22';
 }
 class NewProject {
     inputValues = [

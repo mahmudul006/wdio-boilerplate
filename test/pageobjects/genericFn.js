@@ -1,11 +1,12 @@
 import locators from "./locators.js";
 import utility  from "../data/utility.js";
-
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 class GenericFn{
-    async open (path) {
+    async open () {
         await browser.maximizeWindow();
-        await browser.url(path);
+        await browser.url('/');
     }
     async login(username, password) {
       await this.open();
@@ -39,30 +40,43 @@ class GenericFn{
               continue;
             }
             const locate = await $(`${input==='Comment' ? 'textarea' : 'input'}[name='${section}.${input}']`);
-            await locate.scrollIntoView({ block: 'end' });
+            // await locate.scrollIntoView({ block: 'end' });
+            await this.genericScrollTo(await locate)
             await locate.setValue(input==='Name' && index===0 ? name : utility.newproject.inputValues[idx++])
           }
         }
-        const filePath = 'C:/Selise/wdio-boilerplate/test/data/files/logo1.png';
+        const filePath = '../data/files/logo1.png'
         const element = await locators.newproject.companyLogo;
         await this.fileUpload(filePath, element)
         await locators.newproject.new_project_create_complete.click();
     }
 
-    async fileUpload(filePath, element) {
-      const remoteFilePath = await browser.uploadFile(filePath);
+    // async fileUpload(filePath, element) {
+    //   const remoteFilePath = await browser.uploadFile(filePath);
+    //   await browser.execute(async (e) => {
+    //       e.style.display = 'block'; 
+    //   }, element)
+    //   await element.setValue(remoteFilePath);
+    // }
+    async fileUpload(url, locator) {
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = path.dirname(__filename);
+      const filePath = path.join(__dirname, url);
+  
+      const upload_file_element = await locator;
+      await upload_file_element.scrollIntoView({ block: 'end' });
       await browser.execute(async (e) => {
-          e.style.display = 'block'; 
-      }, element)
-      await element.setValue(remoteFilePath);
+        e.style.display = 'block';
+      }, upload_file_element);
+  
+      await upload_file_element.waitForDisplayed();
+      await upload_file_element.setValue(filePath);
     }
     
     async generateAnUniqueProjectName(name) {
       await this.genericWaitUntil(await locators.searchproject.searchField);
-      await locators.searchproject.searchField.waitForInteractable();
       await locators.searchproject.searchField.setValue(name);
-      // await browser.pause(5000);
-      await this.genericWaitUntil(await $$(`span*=${name}`))
+      await browser.pause(5000);
 
       let str = '';
       let mx = 0;
@@ -95,6 +109,22 @@ class GenericFn{
         await this.genericWaitUntil(await locators.deleteproject.deleteProjectModal);
         await locators.deleteproject.deleteButton.click();
         await locators.deleteproject.deleteConfirmButton.click();
+    }
+
+    async genericScrollTo(locate) {
+      const elementLocation = await locate.getLocation();
+      console.log(elementLocation);
+      const viewportWidth = await browser.execute(() => window.innerWidth);
+      const viewportHeight = await browser.execute(() => window.innerHeight);
+      const xOffset = elementLocation.x - viewportWidth / 2;
+      const yOffset = elementLocation.y - viewportHeight / 2;
+      await browser.execute(
+        (x, y) => {
+          window.scrollTo(x, y);
+        },
+        xOffset,
+        yOffset
+      );
     }
 }
 export default new GenericFn();
