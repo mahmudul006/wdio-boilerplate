@@ -19,7 +19,8 @@ describe('Creating New Project in Amberg RMS System  ', async () => {
         await genericFn.genericWaitUntil(await locators.deleteproject.deleteSuccessfulAlert);
         await expect(await locators.deleteproject.deleteSuccessfulAlert).toHaveTextContaining('Project deleted successfully')
     })
-    after('delete project', async () => {
+    
+    after('logout ', async () => {
         await locators.projectdetails.logout.click();
     })
 });

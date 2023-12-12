@@ -34,6 +34,7 @@ class GenericFn{
               const arrow = await $$("svg[data-testid='ArrowDropDownIcon']")[idxx++];
               await $$(`span=${idxx===1 ? 'Project Configuration' : 'Customer information'}`)[0].click();
               await arrow.parentElement().click();
+              await browser.debug();
               const target = await $(`li=${input[1]}`);
               await target.scrollIntoView();
               await target.click();
@@ -58,6 +59,7 @@ class GenericFn{
     //   }, element)
     //   await element.setValue(remoteFilePath);
     // }
+
     async fileUpload(url, locator) {
       const __filename = fileURLToPath(import.meta.url);
       const __dirname = path.dirname(__filename);
