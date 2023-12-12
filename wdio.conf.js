@@ -75,13 +75,13 @@ export const config = {
   capabilities: [
     {
       maxInstances: 1,
-      browserName: 'chrome',
-      browserVersion: '120.0.6099.62',
+      browserName: 'firefox',
+      // browserVersion: '120.0.6099.62',
       // browserVersion: 'stable',
 
       //firefox
       // browserName: 'firefox',
-      // browserVersion: 'latest',
+      browserVersion: 'latest',
 
       //edge
       // browserName: 'MicrosoftEdge',
