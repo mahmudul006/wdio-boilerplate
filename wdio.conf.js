@@ -75,8 +75,8 @@ export const config = {
   capabilities: [
     {
       maxInstances: 1,
-      browserName: 'chrome',
-      browserVersion: '120.0.6099.62',
+      // browserName: 'chrome',
+      // browserVersion: '120.0.6099.62',
       // browserVersion: 'stable',
 
       //firefox
@@ -84,7 +84,7 @@ export const config = {
       // browserVersion: 'latest',
 
       //edge
-      // browserName: 'MicrosoftEdge',
+      browserName: 'MicrosoftEdge',
 
       'goog:chromeOptions': {
         args: ['--window-size=1920, 1080', ...headlesProperty],
@@ -168,7 +168,7 @@ export const config = {
       {
         outputDir: 'junit-results',
         outputFileFormat: function (options) {
-          return `results-${options.cid}.${options.suite[0]}.xml`;
+          return `results-${options.cid}.${options?.suite[0]}.xml`;
         },
       },
     ],
