@@ -1,6 +1,6 @@
 class EnvironmentConfig {
     constructor() {
-        this.dev = 'http://dev-amberg.seliselocal.com/';
+        this.dev = 'https://dev-amberg.seliselocal.com/';
         this.stage = 'https://stage-amberg.selise.biz/';
     }
 }

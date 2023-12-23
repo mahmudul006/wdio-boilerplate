@@ -75,9 +75,15 @@ export const config = {
   capabilities: [
     {
       maxInstances: 1,
+<<<<<<< HEAD
       // browserName: 'chrome',
       // browserVersion: '120.0.6099.62',
       // browserVersion: 'stable',
+=======
+      browserName: 'chrome',
+      // browserVersion: '120.0.6099.62',
+      browserVersion: 'stable',
+>>>>>>> 0d483a2139bce90cae80caa571b50b4f8c1d9c52
 
       //firefox
       // browserName: 'firefox',
@@ -98,7 +104,8 @@ export const config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: 'error',
+  logLevel: 'info',
+  outputDir: './logs',
   //
   // Set specific log levels per logger
   // loggers:
@@ -205,7 +212,7 @@ export const config = {
   // See the full list at http://mochajs.org/
   mochaOpts: {
     ui: 'bdd',
-    timeout: 60000,
+    timeout: 600000,
   },
   //
   // =====
